@@ -1,1 +1,4 @@
 .idea
+lifting/onnx/*.pth
+lifting/onnx/*.onnx
+lifting/onnx/*.onnx.data
