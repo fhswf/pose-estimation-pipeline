@@ -9,31 +9,7 @@ from tqdm import tqdm
 from sklearn.model_selection import train_test_split
 
 
-# Modelldefinition
-class model_A_simple_yet_effective_baseline_for_3d_human_pose_estimation(nn.Module):
-    def __init__(self, num_keypoints=133):
-        super(model_A_simple_yet_effective_baseline_for_3d_human_pose_estimation, self).__init__()
-        self.upscale=nn.Linear(num_keypoints * 2, 1024)
-        self.fc1=nn.Linear(1024, 1024)
-        self.bn1=nn.BatchNorm1d(1024)
-        self.fc2=nn.Linear(1024, 1024)
-        self.bn2=nn.BatchNorm1d(1024)
-        self.fc3=nn.Linear(1024, 1024)
-        self.bn3=nn.BatchNorm1d(1024)
-        self.fc4=nn.Linear(1024, 1024)
-        self.bn4=nn.BatchNorm1d(1024)
-        self.outputlayer=nn.Linear(1024, num_keypoints * 3)
-
-    def forward(self, x):
-        x=self.upscale(x)
-        x1=nn.Dropout(p=0.5)(nn.ReLU()(self.bn1(self.fc1(x))))
-        x1=nn.Dropout(p=0.5)(nn.ReLU()(self.bn2(self.fc2(x1))))
-        x=x + x1
-        x1=nn.Dropout(p=0.5)(nn.ReLU()(self.bn3(self.fc3(x))))
-        x1=nn.Dropout(p=0.5)(nn.ReLU()(self.bn4(self.fc4(x1))))
-        x=x + x1
-        x=self.outputlayer(x)
-        return x
+from Simple3DPoseLiftingModel import Simple3DPoseLiftingModel
 
 
 # Dataset Klasse für Ihre Daten - jetzt für Listen optimiert
@@ -118,7 +94,7 @@ def train_model(train_data, test_data, epochs=100, batch_size=256, learning_rate
     test_dataloader=DataLoader(test_dataset, batch_size=32, shuffle=False)
 
     # Modell initialisieren
-    model=model_A_simple_yet_effective_baseline_for_3d_human_pose_estimation(num_keypoints=num_keypoints).to(device)
+    model=Simple3DPoseLiftingModel(num_keypoints=num_keypoints).to(device)
 
     # Falls vortrainiertes Modell existiert, laden
     if os.path.exists(f'net_{num_keypoints}.pth'):

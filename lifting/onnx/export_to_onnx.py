@@ -1,6 +1,9 @@
 import torch
 import argparse
-from pose_estimation_recognition_utils_rtmlib.Simple3DPoseLiftingModel import Simple3DPoseLiftingModel
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from Simple3DPoseLiftingModel import Simple3DPoseLiftingModel
 
 def export_model(num_keypoints, model_path, output_path=None):
     if output_path is None:
@@ -34,7 +37,6 @@ def export_model(num_keypoints, model_path, output_path=None):
     # We consolidate them using the `onnx` library.
     try:
         import onnx
-        import os
         onnx_model = onnx.load(output_path)
         # Re-save with save_as_external_data=False to pack the weights inline
         onnx.save_model(onnx_model, output_path, save_as_external_data=False)
