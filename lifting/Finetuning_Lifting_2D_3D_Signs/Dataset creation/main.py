@@ -1,8 +1,6 @@
-import os
 import cv2
 import numpy as np
 import json
-import glob
 from pathlib import Path
 from tqdm import tqdm
 import argparse
