@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel", "numpy", "cython", "pip", "setuptools"]
+requires = ["setuptools>=65.0", "wheel", "numpy", "cython"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -27,11 +27,14 @@ dependencies = [
     "chumpy",
     "json_tricks",
     "matplotlib",
+    "mmcv-lite>=2.0.0",
+    "mmengine>=0.6.0,<1.0.0",
     "munkres",
     "numpy",
     "opencv-python",
     "pillow",
     "scipy",
+    "torch>=1.8",
     "torchvision",
     "xtcocotools>=1.12",
 ]
@@ -53,7 +56,6 @@ optional = [
 ]
 build = [
     "numpy",
-    "torch>=1.8",
 ]
 
 [project.urls]
